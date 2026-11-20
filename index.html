@@ -43,7 +43,7 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;font-weight:500}
 </style>
 </head>
 <body>
-<audio id="bgMusic" src="musiklamaran.mp3" preload="auto" loop playsinline></audio>
+<audio id="bgMusic" src="musiklamaran.mp3" preload="auto" autoplay loop playsinline></audio>
 <main class="deck" id="deck" aria-label="Undangan lamaran Dede dan Nistri">
 <div class="brand">D & N</div><div class="counter" id="counter">01 / 07</div><button class="music-toggle" id="musicToggle" type="button" aria-label="Jeda musik" title="Jeda / putar musik" hidden>♫</button>
 
@@ -126,6 +126,8 @@ document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.
 const deck=document.getElementById('deck');deck.addEventListener('touchstart',e=>{startX=e.changedTouches[0].clientX;startY=e.changedTouches[0].clientY},{passive:true});deck.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.25)go(dx<0?Math.min(current+1,slides.length-1):Math.max(0,current-1))},{passive:true});
 function tick(){const t=new Date('2026-11-22T10:00:00+07:00').getTime();let x=Math.max(0,t-Date.now());const vals=[Math.floor(x/86400000),Math.floor(x%86400000/3600000),Math.floor(x%3600000/60000),Math.floor(x%60000/1000)];['days','hours','minutes','seconds'].forEach((id,i)=>document.getElementById(id).textContent=String(vals[i]).padStart(2,'0'))}
 tick();setInterval(tick,1000);
+// Coba mulai otomatis saat halaman dibuka; browser dapat memblokir audio bersuara sampai ada interaksi pengguna.
+startMusic();
 })();
 </script>
 </body></html>
